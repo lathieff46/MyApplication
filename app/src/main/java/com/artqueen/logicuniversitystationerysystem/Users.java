@@ -23,7 +23,9 @@ public class Users extends HashMap<String, String> {
         Users p = null;
         try {
             JSONObject a = JSONParser.getJSONFromUrl(String.format("%s/Service.svc/Users/%s", baseUrl, username));
-            p = new Users(a.getString("UserId"),a.getString("UserName"),a.getString("UserEmail"),a.getString("UserDepartmentId"),a.getString("UserPhoto"),a.getString("UserPassword"),a.getString("UserRoleId"));
+            if(a!=null) {
+                p = new Users(a.getString("UserId"), a.getString("UserName"), a.getString("UserEmail"), a.getString("UserDepartmentId"), a.getString("UserPhoto"), a.getString("UserPassword"), a.getString("UserRoleId"));
+            }
 
         } catch (Exception e) {
            e.printStackTrace();

@@ -38,19 +38,23 @@ public class MainActivity extends ActionBarActivity {
                     }
                     @Override
                     protected void onPostExecute(Users p) {
-                        String pwd = p.get("userPassword");
-                        if(password.equals(pwd))
-                        {
-                            Toast.makeText(MainActivity.this,"Login Successful",Toast.LENGTH_SHORT).show();
-                            String role = p.get("userRoleId");
-                            if(role.equals("DE")) {
-                                Intent intent = new Intent(MainActivity.this, EmployeeHomePage.class);
-                                intent.putExtra("EmpDetails",p);
-                                startActivity(intent);
-                            }
-                        }
-                        else
+                        if(p==null){
                             Toast.makeText(MainActivity.this,"Login failed",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            String pwd = p.get("userPassword");
+
+                            if (password.equals(pwd)) {
+                                Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+                                String role = p.get("userRoleId");
+                                if (role.equals("DE")) {
+                                    Intent intent = new Intent(MainActivity.this, EmployeeHomePage.class);
+                                    intent.putExtra("EmpDetails", p);
+                                    startActivity(intent);
+                                }
+                            } else
+                                Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                        }
 
                     }
                 }.execute(username);

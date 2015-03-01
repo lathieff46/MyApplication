@@ -26,6 +26,10 @@
             android:name=".MakeRequest"
             android:label="@string/title_activity_make_request" >
         </activity>
+        <activity
+            android:name=".Cart"
+            android:label="@string/title_activity_cart" >
+        </activity>
     </application>
 
 </manifest>
