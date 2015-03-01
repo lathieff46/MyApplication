@@ -24,7 +24,7 @@ import java.util.HashMap;
 
 public class EmployeeHomePage extends ActionBarActivity {
     TextView name;
-    Button makeRequest;
+    Button makeRequest,updateRequest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +61,14 @@ public class EmployeeHomePage extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(EmployeeHomePage.this,MakeRequest.class);
+                startActivity(i);
+            }
+        });
+        updateRequest = (Button) findViewById(R.id.updateRequestBtn);
+        updateRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(EmployeeHomePage.this,UpdateRequisition.class);
                 startActivity(i);
             }
         });

@@ -7,4 +7,5 @@
     <string name="title_activity_make_request">MakeRequest</string>
     <string name="title_activity_item_details">ItemDetails</string>
     <string name="title_activity_cart">Cart</string>
+    <string name="title_activity_update_requisition">UpdateRequisition</string>
 </resources>

@@ -40,6 +40,7 @@
         android:text="Submit Request"
         android:id="@+id/submitrequestBtn"
         android:layout_alignParentBottom="true"
+        android:onClick="submitRequisition"
         android:layout_toRightOf="@+id/textView8"
         android:layout_toEndOf="@+id/textView8" />
 

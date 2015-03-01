@@ -30,6 +30,10 @@
             android:name=".Cart"
             android:label="@string/title_activity_cart" >
         </activity>
+        <activity
+            android:name=".UpdateRequisition"
+            android:label="@string/title_activity_update_requisition" >
+        </activity>
     </application>
 
 </manifest>
