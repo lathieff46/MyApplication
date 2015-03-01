@@ -22,25 +22,13 @@ public class Items extends HashMap<String, String> {
         put("reorderLevel", reorderlevel);
         put("reorderQty",reorderqty);
         put("unitOfMeasure",unitofmeasure);
+        put("qty","1");
           }
 
     public void saveQty(String number)
     {
         put("qty",number);
     }
-   /* public static List<String> list(String category) {
-        List<String> list = new ArrayList<String>();
-        JSONArray a = JSONParser.getJSONArrayFromUrl(String.format("%s/Service.svc/Item/%s", baseUrl,category));
-        try {
-            for (int i =0; i<a.length(); i++) {
-                String b = a.getString(i);
-                list.add(b);
-            }
-        } catch (Exception e) {
-            Log.e("list", "JSONArray error");
-        }
-        return(list);
-    }*/
 
 
     public static List<Items> list(String category) {

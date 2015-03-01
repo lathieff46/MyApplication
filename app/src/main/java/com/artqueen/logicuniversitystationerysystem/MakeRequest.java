@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,9 +24,8 @@ import java.util.List;
 
 
 public class MakeRequest extends ActionBarActivity   {
-    EditText searchEt,quantityEt;
+    EditText searchEt;
     Button searchBtn,checkoutBtn;
-    TextView descriptionTv,unitOfMeasureTv;
     static List<Items> cart=new ArrayList<Items>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,6 @@ public class MakeRequest extends ActionBarActivity   {
             public void onClick(View v) {
                 if(cart!=null){
                     Intent i = new Intent(MakeRequest.this,Cart.class);
-                    i.putExtra("cartDetails", (java.io.Serializable) cart);
                     startActivity(i);
                 }
                 else{

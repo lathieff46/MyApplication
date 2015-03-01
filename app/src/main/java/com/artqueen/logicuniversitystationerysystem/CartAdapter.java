@@ -48,6 +48,7 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.cart_row, null);
         }
+
         TextView listItemText = (TextView)view.findViewById(R.id.text1);
         String des=((HashMap<String,String>)list.get(position)).get("description");
         listItemText.setText(des);
@@ -55,6 +56,7 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
         TextView listItemText1 = (TextView)view.findViewById(R.id.text2);
         String quantity=((HashMap<String,String>)list.get(position)).get("qty");
         listItemText1.setText("Quantity: "+quantity);
+        notifyDataSetChanged();
 
 
         TextView listItemText2 = (TextView) view.findViewById(R.id.text3);
@@ -65,6 +67,7 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 list.remove(position);
                 notifyDataSetChanged();
             }

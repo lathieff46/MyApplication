@@ -31,6 +31,16 @@
         android:text="Add Items"
         android:id="@+id/addMoreBtn"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_toLeftOf="@+id/textView8"
+        android:layout_toStartOf="@+id/textView8" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit Request"
+        android:id="@+id/submitrequestBtn"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/textView8"
+        android:layout_toEndOf="@+id/textView8" />
 
 </RelativeLayout>

@@ -17,6 +17,7 @@ public class MainActivity extends ActionBarActivity {
 
     Button loginBtn;
     EditText userNameEt,passwordEt;
+    static Users p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
                 new AsyncTask<String, Void, Users>() {
                     @Override
                     protected Users doInBackground(String... params) {
-                        Users p = Users.getUser(params[0]);
+                         p = Users.getUser(params[0]);
                         return p;
                     }
                     @Override

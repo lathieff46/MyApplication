@@ -18,6 +18,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
@@ -26,10 +28,11 @@ import java.util.List;
 
 public class Cart extends ActionBarActivity implements AdapterView.OnItemClickListener{
     List<Items> cartDetails;
+    List<CartItems> cartItems;
     Button goBack;
     public static SharedPreferences savedData;
-    EditText quantityEt;
-
+    NumberPicker quantityNP;
+    TextView uom;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         savedData= PreferenceManager.getDefaultSharedPreferences(this);
@@ -38,34 +41,42 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
         ListView list = (ListView) findViewById(R.id.cartLV);
         list.setOnItemClickListener(this);
         goBack = (Button)findViewById(R.id.addMoreBtn);
-        Intent i = getIntent();
-        cartDetails = (List<Items>) i.getSerializableExtra("cartDetails");
-        CartAdapter cartAdapter =new CartAdapter(cartDetails,this);
-        list.setAdapter(cartAdapter);
-        //registerForContextMenu(list);
+        goBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Cart.this,MakeRequest.class));
+            }
+        });
+
+            CartAdapter cartAdapter =new CartAdapter(MakeRequest.cart,this);
+            list.setAdapter(cartAdapter);
     }
+
 
     @Override
     public void onItemClick(AdapterView<?> av, View v, final int position, long id) {
+
         Toast.makeText(Cart.this,"Clicked",Toast.LENGTH_LONG).show();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         final View yourCustomView = inflater.inflate(R.layout.dialog_box, null);
 
-        quantityEt = (EditText) yourCustomView.findViewById(R.id.quantityEt);
-        if(((HashMap<String,String>)cartDetails.get(position)).get("qty")!=null)
-        {
-            quantityEt.setText(((HashMap<String,String>)cartDetails.get(position)).get("qty"));
-        }
+        quantityNP = (NumberPicker) yourCustomView.findViewById(R.id.numberPicker);
+        quantityNP.setMinValue(1);
+        quantityNP.setMaxValue(100);
+        quantityNP.setValue(Integer.parseInt(MakeRequest.cart.get(position).get("qty")));
+
+        uom = (TextView) yourCustomView.findViewById(R.id.unitOfMeasureTv);
+        uom.setText("Unit of Measure: "+MakeRequest.cart.get(position).get("unitOfMeasure"));
+
         builder.setView(yourCustomView)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
-                        String qty = quantityEt.getText().toString();
+                        String qty = String.valueOf(quantityNP.getValue());
                         Toast.makeText(Cart.this,qty,Toast.LENGTH_SHORT).show();
-                        ((HashMap<String,String>)cartDetails.get(position)).put("qty",qty);
+                        MakeRequest.cart.get(position).saveQty(qty);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -74,22 +85,6 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
                 })
                 .show();
     }
-
-
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        if (v.getId()==R.id.cartLV) {
-            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
-            String[] menuItems = {"Remove from Cart"};
-            for (int i = 0; i<menuItems.length; i++) {
-                menu.add(Menu.NONE, i, i, menuItems[i]);
-            }
-        }
-    }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -113,10 +108,8 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
         return super.onOptionsItemSelected(item);
     }
 
-
-
     @Override
     public void onBackPressed() {
-super.onBackPressed();
+
     }
 }

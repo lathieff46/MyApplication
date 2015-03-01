@@ -31,7 +31,7 @@ public class EmployeeHomePage extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee_home_page);
         Intent i = getIntent();
-        HashMap<String, String> b =(HashMap) i.getSerializableExtra("EmpDetails");
+         HashMap<String, String> b =(HashMap) i.getSerializableExtra("EmpDetails");
         name= (TextView) findViewById(R.id.nameTV);
         final String username = b.get("userName");
 

@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,14 +54,18 @@ public class MyAdapter extends BaseAdapter implements ListAdapter {
         listItemText2.setText(list.get(position).get("category"));
 
 
-        Button addBtn = (Button)view.findViewById(R.id.addBtn);
+        final Button addBtn = (Button)view.findViewById(R.id.addBtn);
 
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                Items a = (Items) list.get(position);
-               list.remove(a);
-               MakeRequest.cart.add(a);
+                if(!MakeRequest.cart.contains(a)) {
+                    MakeRequest.cart.add(a);
+                    list.remove(a);
+                }else
+                    Toast.makeText(context,"Item Already in Cart",Toast.LENGTH_SHORT).show();
+
                 notifyDataSetChanged();
             }
         });
