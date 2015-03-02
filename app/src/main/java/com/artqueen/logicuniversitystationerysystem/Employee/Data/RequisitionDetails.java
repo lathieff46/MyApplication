@@ -1,9 +1,8 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.Data;
 
-import android.widget.Toast;
+import com.artqueen.logicuniversitystationerysystem.JSONParser;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class RequisitionDetails extends HashMap<String, String> {
     public static List<RequisitionDetails> list(String requisitionId) {
         List<RequisitionDetails> list = new ArrayList<RequisitionDetails>();
         try {
-            JSONArray a = JSONParser.getJSONArrayFromUrl(String.format("%s/Service.svc/RequisitionDetail/%s", baseUrl,requisitionId));
+            JSONArray a = JSONParser.getJSONArrayFromUrl(String.format("%s/Service.svc/RequisitionDetail/%s", baseUrl, requisitionId));
             if(a!=null) {
                 for (int i = 0; i < a.length(); i++) {
                     JSONObject c = a.getJSONObject(i);

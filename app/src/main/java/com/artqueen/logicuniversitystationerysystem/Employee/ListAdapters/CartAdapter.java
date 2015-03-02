@@ -1,4 +1,4 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
+import com.artqueen.logicuniversitystationerysystem.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

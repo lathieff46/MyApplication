@@ -1,4 +1,4 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -6,18 +6,17 @@ import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
+import com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters.MyAdapter;
+import com.artqueen.logicuniversitystationerysystem.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +25,7 @@ import java.util.List;
 public class MakeRequest extends ActionBarActivity   {
     EditText searchEt;
     Button searchBtn,checkoutBtn;
-    static List<Items> cart=new ArrayList<Items>();
+    public static List<Items> cart=new ArrayList<Items>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

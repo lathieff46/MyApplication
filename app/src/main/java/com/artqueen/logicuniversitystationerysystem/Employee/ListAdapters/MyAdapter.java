@@ -1,4 +1,4 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,6 +10,11 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.artqueen.logicuniversitystationerysystem.Employee.Activities.MakeRequest;
+import com.artqueen.logicuniversitystationerysystem.Employee.Activities.UpdateCart;
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
+import com.artqueen.logicuniversitystationerysystem.R;
 
 import java.util.ArrayList;
 import java.util.List;

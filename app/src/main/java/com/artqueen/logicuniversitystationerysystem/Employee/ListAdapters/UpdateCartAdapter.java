@@ -1,4 +1,4 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -11,7 +11,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.RequisitionDetails;
+import com.artqueen.logicuniversitystationerysystem.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -78,7 +81,7 @@ public class UpdateCartAdapter extends BaseAdapter implements ListAdapter {
                             public void onClick(DialogInterface dialog, int id) {
                                 Items a = list.get(position);
                                 Log.e(">>",""+a.get("itemId"));
-                                RequisitionDetails.deleteRequisitionDetail(a,RequisitionID);
+                                RequisitionDetails.deleteRequisitionDetail(a, RequisitionID);
                                 list.remove(position);
                                 notifyDataSetChanged();
                             }

@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".Employee.Activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,23 +19,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".EmployeeHomePage"
+            android:name=".Employee.Activities.EmployeeHomePage"
             android:label="@string/title_activity_employee_home_page" >
         </activity>
         <activity
-            android:name=".MakeRequest"
+            android:name=".Employee.Activities.MakeRequest"
             android:label="@string/title_activity_make_request" >
         </activity>
         <activity
-            android:name=".Cart"
+            android:name=".Employee.Activities.Cart"
             android:label="@string/title_activity_cart" >
         </activity>
         <activity
-            android:name=".UpdateRequisition"
+            android:name=".Employee.Activities.UpdateRequisition"
             android:label="@string/title_activity_update_requisition" >
         </activity>
         <activity
-            android:name=".UpdateCart"
+            android:name=".Employee.Activities.UpdateCart"
             android:label="@string/title_activity_update_cart" >
         </activity>
     </application>

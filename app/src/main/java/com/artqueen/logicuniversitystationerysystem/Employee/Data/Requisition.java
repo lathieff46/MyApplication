@@ -1,6 +1,6 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.Data;
 
-import android.util.Log;
+import com.artqueen.logicuniversitystationerysystem.JSONParser;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,7 +28,7 @@ public class Requisition extends HashMap<String,String> {
     public static Requisition GetLastRequisition(String eid) {
         Requisition p = null;
         try {
-            JSONObject a = JSONParser.getJSONFromUrl(String.format("%s/Service.svc/GetLastRequisition/%s", baseUrl,eid));
+            JSONObject a = JSONParser.getJSONFromUrl(String.format("%s/Service.svc/GetLastRequisition/%s", baseUrl, eid));
             if(a!=null) {
                 p = new Requisition(String.valueOf(a.getInt("RequisitionID")), a.getString("DepartmentName"), a.getString("EmployeeID"), a.getString("Status"), a.getString("Comments"), a.getString("ProcessStatus"), a.getString("Date"));
             }

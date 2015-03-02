@@ -1,16 +1,18 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.Activities;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.artqueen.logicuniversitystationerysystem.R;
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.Users;
 
 
 public class MainActivity extends ActionBarActivity {

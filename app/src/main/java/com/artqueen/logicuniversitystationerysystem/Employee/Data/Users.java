@@ -1,6 +1,6 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.Data;
 
-import android.util.Log;
+import com.artqueen.logicuniversitystationerysystem.JSONParser;
 
 import org.json.JSONObject;
 

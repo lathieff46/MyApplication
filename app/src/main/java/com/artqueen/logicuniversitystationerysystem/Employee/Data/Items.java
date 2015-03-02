@@ -1,9 +1,10 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.Data;
 
 /**
  * Created by shaikmdashiq on 28/2/15.
  */
-import android.util.Log;
+
+import com.artqueen.logicuniversitystationerysystem.JSONParser;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,7 +35,7 @@ public class Items extends HashMap<String, String> {
     public static List<Items> list(String category) {
         List<Items> list = new ArrayList<Items>();
         try {
-            JSONArray a = JSONParser.getJSONArrayFromUrl(String.format("%s/Service.svc/Item/%s", baseUrl,category));
+            JSONArray a = JSONParser.getJSONArrayFromUrl(String.format("%s/Service.svc/Item/%s", baseUrl, category));
             if(a!=null) {
                 for (int i = 0; i < a.length(); i++) {
                     JSONObject c = a.getJSONObject(i);

@@ -1,4 +1,4 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.Activities;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,10 +14,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.artqueen.logicuniversitystationerysystem.R;
 
 import java.io.InputStream;
-import java.io.Serializable;
 import java.net.URL;
 import java.util.HashMap;
 

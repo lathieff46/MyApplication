@@ -1,4 +1,6 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.Data;
+
+import com.artqueen.logicuniversitystationerysystem.JSONParser;
 
 import org.json.JSONObject;
 

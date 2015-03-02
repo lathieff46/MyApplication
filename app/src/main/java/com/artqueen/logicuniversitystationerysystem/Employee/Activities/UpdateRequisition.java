@@ -1,4 +1,4 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -10,9 +10,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.Department;
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
+import com.artqueen.logicuniversitystationerysystem.JSONParser;
+import com.artqueen.logicuniversitystationerysystem.R;
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.Requisition;
+import com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters.UpdateRequisitionAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,7 +83,7 @@ public class UpdateRequisition extends ActionBarActivity {
             StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.LAX);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             java.util.Date one=new java.util.Date();
-            String dName=Department.getDepartment(MainActivity.p.get("userDepartmentId")).get("departmentName");
+            String dName= Department.getDepartment(MainActivity.p.get("userDepartmentId")).get("departmentName");
             Toast.makeText(this, dName, Toast.LENGTH_SHORT).show();
             requisition.put("DepartmentName", dName);
             requisition.put("EmployeeID",MainActivity.p.get("userId"));

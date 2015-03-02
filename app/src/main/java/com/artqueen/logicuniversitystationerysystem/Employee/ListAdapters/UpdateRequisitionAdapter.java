@@ -1,4 +1,4 @@
-package com.artqueen.logicuniversitystationerysystem;
+package com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -9,18 +9,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.artqueen.logicuniversitystationerysystem.Employee.Activities.UpdateCart;
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.Requisition;
+import com.artqueen.logicuniversitystationerysystem.Employee.Data.RequisitionDetails;
+import com.artqueen.logicuniversitystationerysystem.R;
 
 import java.util.ArrayList;
 
 import java.util.List;
-
-import static android.support.v4.app.ActivityCompat.startActivity;
 
 /**
  * Created by shaikmdashiq on 1/3/15.
@@ -32,7 +34,7 @@ public class UpdateRequisitionAdapter extends BaseAdapter implements ListAdapter
     private Context context;
 
 
-    static List<Items> cart=new ArrayList<Items>();
+   public static List<Items> cart=new ArrayList<Items>();
 
     public UpdateRequisitionAdapter(List<Requisition> requisitionList, Context context)
     {
@@ -114,9 +116,9 @@ public class UpdateRequisitionAdapter extends BaseAdapter implements ListAdapter
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
-                                int rid=Integer.valueOf(list.get(position).get("requisitionID"));
+                                int rid = Integer.valueOf(list.get(position).get("requisitionID"));
                                 Requisition.DeleteRequistion(rid);
-                                Log.e(">>>>>Deleteid:",""+rid);
+                                Log.e(">>>>>Deleteid:", "" + rid);
                                 list.remove(position);
                                 notifyDataSetChanged();
                             }
