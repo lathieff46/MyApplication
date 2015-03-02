@@ -117,7 +117,7 @@ public class UpdateRequisitionAdapter extends BaseAdapter implements ListAdapter
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 int rid = Integer.valueOf(list.get(position).get("requisitionID"));
-                                Requisition.DeleteRequistion(rid);
+                                Requisition.DeleteRequisition(rid);
                                 Log.e(">>>>>Deleteid:", "" + rid);
                                 list.remove(position);
                                 notifyDataSetChanged();

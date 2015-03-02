@@ -39,7 +39,7 @@ public class Requisition extends HashMap<String,String> {
     }
 
 
-    public static void DeleteRequistion(int id)
+    public static void DeleteRequisition(int id)
     {
         try {
             JSONParser.getJSONFromUrl(String.format("%s/Service.svc/DeleteRequisition/%s", baseUrl, id));
@@ -53,6 +53,25 @@ public class Requisition extends HashMap<String,String> {
         List<Requisition> list = new ArrayList<Requisition>();
         try {
             JSONArray a = JSONParser.getJSONArrayFromUrl(String.format("%s/Service.svc/Requisition/%s", baseUrl,empId));
+            if(a!=null) {
+                for (int i = 0; i < a.length(); i++) {
+                    JSONObject c = a.getJSONObject(i);
+                    list.add(new Requisition(c.getString("RequisitionID"),
+                            c.getString("DepartmentName"),
+                            c.getString("EmployeeID"),
+                            c.getString("Status"), c.getString("Comments"), c.getString("ProcessStatus"),c.getString("Date")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public static List<Requisition> historyList(String empId) {
+        List<Requisition> list = new ArrayList<Requisition>();
+        try {
+            JSONArray a = JSONParser.getJSONArrayFromUrl(String.format("%s/Service.svc/ViewRequisitionHistory/%s", baseUrl,empId));
             if(a!=null) {
                 for (int i = 0; i < a.length(); i++) {
                     JSONObject c = a.getJSONObject(i);
