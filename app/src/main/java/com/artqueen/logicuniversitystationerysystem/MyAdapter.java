@@ -1,6 +1,7 @@
 package com.artqueen.logicuniversitystationerysystem;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,17 +60,39 @@ public class MyAdapter extends BaseAdapter implements ListAdapter {
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-               Items a = (Items) list.get(position);
-                if(!MakeRequest.cart.contains(a)) {
-                    MakeRequest.cart.add(a);
-                    list.remove(a);
-                }else
-                    Toast.makeText(context,"Item Already in Cart",Toast.LENGTH_SHORT).show();
-
+               if(UpdateCart.flag!=1) {
+                   Items a = (Items) list.get(position);
+                   if (!MakeRequest.cart.contains(a)) {
+                       MakeRequest.cart.add(a);
+                       list.remove(a);
+                   } else
+                       Toast.makeText(context, "Item Already in Cart", Toast.LENGTH_SHORT).show();
+               }else{
+                   Items a=(Items)list.get(position);
+                   if (!checkSameCart(a.get("itemId"))) {
+                       Log.e(">>UPDATE  ADD NEW iTEM",""+a.get("itemId"));
+                       UpdateRequisitionAdapter.cart.add(a);
+                       list.remove(a);
+                   } else
+                       Toast.makeText(context, "Item Already in Cart", Toast.LENGTH_SHORT).show();
+               }
                 notifyDataSetChanged();
             }
         });
 
         return view;
+    }
+
+    public Boolean checkSameCart(String id)
+    {
+       Boolean flag=false;
+       for(Items a:UpdateRequisitionAdapter.cart)
+       {
+           if(a.get("itemId").equals(id)) {
+               flag = true;
+               return flag;
+           }
+       }
+       return flag;
     }
 }

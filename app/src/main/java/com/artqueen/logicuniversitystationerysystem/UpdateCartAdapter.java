@@ -1,6 +1,9 @@
 package com.artqueen.logicuniversitystationerysystem;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,19 +11,20 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by shaikmdashiq on 28/2/15.
+ * Created by shaikmdashiq on 2/3/15.
  */
-public class CartAdapter extends BaseAdapter implements ListAdapter {
+public class UpdateCartAdapter extends BaseAdapter implements ListAdapter {
     private List<Items> list = new ArrayList<Items>();
     private Context context;
-    public CartAdapter(List<Items> itemsList, Context context)
+    public int RequisitionID;
+    public UpdateCartAdapter(List<Items> itemsList, Context context)
     {
         this.list=itemsList;
         this.context=context;
@@ -49,7 +53,7 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
             view = inflater.inflate(R.layout.cart_row, null);
         }
 
-        TextView listItemText = (TextView)view.findViewById(R.id.text1);
+        final TextView listItemText = (TextView)view.findViewById(R.id.text1);
         String des=((HashMap<String,String>)list.get(position)).get("description");
         listItemText.setText(des);
 
@@ -67,10 +71,26 @@ public class CartAdapter extends BaseAdapter implements ListAdapter {
         remove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                list.remove(position);
-                notifyDataSetChanged();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Are confirm delete the Requisition for this Item!")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                Items a = list.get(position);
+                                Log.e(">>",""+a.get("itemId"));
+                                RequisitionDetails.deleteRequisitionDetail(a,RequisitionID);
+                                list.remove(position);
+                                notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                            }
+                        })
+                        .show();
             }
         });
         return view;
     }
+
 }

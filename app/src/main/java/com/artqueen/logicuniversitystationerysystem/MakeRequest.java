@@ -37,12 +37,18 @@ public class MakeRequest extends ActionBarActivity   {
         checkoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(cart!=null){
-                    Intent i = new Intent(MakeRequest.this,Cart.class);
+                if(UpdateCart.flag!=1) {
+                    if (cart != null) {
+                        Intent i = new Intent(MakeRequest.this, Cart.class);
+                        startActivity(i);
+                    } else {
+                        Toast.makeText(MakeRequest.this, "No Items in cart, Please add items", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+//                    String id=getIntent().getStringExtra("id");
+//                    Log.e(">>>ID:",""+id);
+                    Intent i = new Intent(MakeRequest.this, UpdateCart.class);
                     startActivity(i);
-                }
-                else{
-                    Toast.makeText(MakeRequest.this,"No Items in cart, Please add items",Toast.LENGTH_SHORT).show();
                 }
             }
         });

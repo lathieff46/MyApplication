@@ -38,17 +38,33 @@ public class Requisition extends HashMap<String,String> {
         return p;
     }
 
-    public static List<String> list(String empId) {
-        List<String> list = new ArrayList<String>();
-        JSONArray a = JSONParser.getJSONArrayFromUrl(String.format("%s/Service.svc/Requisition/%s", baseUrl,empId));
+
+    public static void DeleteRequistion(int id)
+    {
         try {
-            for (int i =0; i<a.length(); i++) {
-                String b = a.getString(i);
-                list.add(b);
+            JSONParser.getJSONFromUrl(String.format("%s/Service.svc/DeleteRequisition/%s", baseUrl, id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static List<Requisition> list(String empId) {
+        List<Requisition> list = new ArrayList<Requisition>();
+        try {
+            JSONArray a = JSONParser.getJSONArrayFromUrl(String.format("%s/Service.svc/Requisition/%s", baseUrl,empId));
+            if(a!=null) {
+                for (int i = 0; i < a.length(); i++) {
+                    JSONObject c = a.getJSONObject(i);
+                    list.add(new Requisition(c.getString("RequisitionID"),
+                            c.getString("DepartmentName"),
+                            c.getString("EmployeeID"),
+                            c.getString("Status"), c.getString("Comments"), c.getString("ProcessStatus"),c.getString("Date")));
+                }
             }
         } catch (Exception e) {
-            Log.e("list", "JSONArray error");
+            e.printStackTrace();
         }
-        return(list);
+        return list;
     }
 }

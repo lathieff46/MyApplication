@@ -48,4 +48,17 @@ public class Items extends HashMap<String, String> {
         }
         return list;
     }
+    public static Items getItem(String itemId) {
+        Items p = null;
+        try {
+            JSONObject a = JSONParser.getJSONFromUrl(String.format("%s/Service.svc/getItem/%s", baseUrl, itemId));
+            if(a!=null) {
+                p = new Items(a.getString("ItemId"), a.getString("Category"), a.getString("Description"), a.getString("ReorderLevel"), a.getString("ReorderQty"), a.getString("UnitOfMeasure"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
+
 }
