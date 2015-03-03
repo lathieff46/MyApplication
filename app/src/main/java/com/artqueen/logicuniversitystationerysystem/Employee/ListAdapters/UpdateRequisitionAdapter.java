@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.artqueen.logicuniversitystationerysystem.Employee.Activities.EmployeeHomePage;
+import com.artqueen.logicuniversitystationerysystem.HomePage;
 import com.artqueen.logicuniversitystationerysystem.Employee.Activities.UpdateCart;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Requisition;
@@ -119,7 +118,7 @@ public class UpdateRequisitionAdapter extends BaseAdapter implements ListAdapter
                                 list.remove(position);
                                 notifyDataSetChanged();
                                 if(list.isEmpty()){
-                                    context.startActivity(new Intent(context, EmployeeHomePage.class));
+                                    context.startActivity(new Intent(context, HomePage.class));
                                 }
                             }
                         })

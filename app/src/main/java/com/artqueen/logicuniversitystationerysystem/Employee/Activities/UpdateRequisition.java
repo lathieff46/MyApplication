@@ -7,15 +7,14 @@ import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Department;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
+import com.artqueen.logicuniversitystationerysystem.HomePage;
 import com.artqueen.logicuniversitystationerysystem.JSONParser;
 import com.artqueen.logicuniversitystationerysystem.R;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Requisition;
@@ -45,7 +44,7 @@ public class UpdateRequisition extends ActionBarActivity {
                     .setMessage("You have made no Request, yet !")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(UpdateRequisition.this,EmployeeHomePage.class));
+                        startActivity(new Intent(UpdateRequisition.this,HomePage.class));
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)

@@ -6,14 +6,13 @@ import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Requisition;
 import com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters.RequestHistoryAdapter;
-import com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters.UpdateRequisitionAdapter;
+import com.artqueen.logicuniversitystationerysystem.HomePage;
 import com.artqueen.logicuniversitystationerysystem.R;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public class RequestHistory extends ActionBarActivity {
                     .setMessage("You have made no Request, yet !")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(RequestHistory.this,EmployeeHomePage.class));
+                            startActivity(new Intent(RequestHistory.this,HomePage.class));
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)

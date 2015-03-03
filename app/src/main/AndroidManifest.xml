@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Employee.Activities.EmployeeHomePage"
+            android:name=".HomePage"
             android:label="@string/title_activity_employee_home_page" >
         </activity>
         <activity
@@ -41,6 +41,10 @@
         <activity
             android:name=".Employee.Activities.RequestHistory"
             android:label="@string/title_activity_request_history" >
+        </activity>
+        <activity
+            android:name=".Representative.CollectionPoint"
+            android:label="@string/title_activity_collection_point" >
         </activity>
     </application>
 

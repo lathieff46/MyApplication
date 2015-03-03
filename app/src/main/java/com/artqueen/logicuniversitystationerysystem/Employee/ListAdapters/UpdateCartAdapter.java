@@ -3,8 +3,6 @@ package com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +12,6 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.artqueen.logicuniversitystationerysystem.Employee.Activities.EmployeeHomePage;
-import com.artqueen.logicuniversitystationerysystem.Employee.Activities.MakeRequest;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.RequisitionDetails;
 import com.artqueen.logicuniversitystationerysystem.R;

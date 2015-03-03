@@ -22,10 +22,10 @@ public class Department extends HashMap<String,String>{
         put("headterm",headterm);
     }
 
-    public static Department getDepartment(String username) {
+    public static Department getDepartment(String deptId) {
         Department p = null;
         try {
-            JSONObject a = JSONParser.getJSONFromUrl(String.format("%s/Service.svc/Department/%s", baseUrl, username));
+            JSONObject a = JSONParser.getJSONFromUrl(String.format("%s/Service.svc/Department/%s", baseUrl, deptId));
             if(a!=null) {
                 p = new Department(a.getString("DepartmentID"), a.getString("DepartmentName"), a.getString("DepartmentHeadID"), a.getString("CollectionPoint"), a.getString("DepartmentRepName"), a.getString("DepartmentHeadTerm"));
             }

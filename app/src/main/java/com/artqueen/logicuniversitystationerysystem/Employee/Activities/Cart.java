@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters.CartAdapter;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Department;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
+import com.artqueen.logicuniversitystationerysystem.HomePage;
 import com.artqueen.logicuniversitystationerysystem.JSONParser;
 import com.artqueen.logicuniversitystationerysystem.R;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Requisition;
@@ -57,7 +58,7 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                              Toast.makeText(Cart.this,"Request Cancelled",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(Cart.this,EmployeeHomePage.class));
+                                startActivity(new Intent(Cart.this,HomePage.class));
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -178,7 +179,7 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
             e.printStackTrace();
         }
         Toast.makeText(Cart.this,"Stationery Request Made Successfully",Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this,EmployeeHomePage.class));
+        startActivity(new Intent(this,HomePage.class));
     }
 
     public void saveDetail(int RequisitionID)

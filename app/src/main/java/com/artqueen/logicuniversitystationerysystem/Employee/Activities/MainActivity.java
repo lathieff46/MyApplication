@@ -7,13 +7,12 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.artqueen.logicuniversitystationerysystem.HomePage;
 import com.artqueen.logicuniversitystationerysystem.R;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Users;
 
@@ -22,7 +21,7 @@ public class MainActivity extends ActionBarActivity {
 
     Button loginBtn;
     EditText userNameEt,passwordEt;
-    static Users p;
+    public static Users p;
     boolean doubleBackToExitPressedOnce;
 
     @Override
@@ -62,10 +61,10 @@ public class MainActivity extends ActionBarActivity {
                             if (password.equals(pwd)) {
                                 Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                 String role = p.get("userRoleId");
-                                if (role.equals("DE")) {
-                                    Intent intent = new Intent(MainActivity.this, EmployeeHomePage.class);
+
+                                    Intent intent = new Intent(MainActivity.this, HomePage.class);
                                     startActivity(intent);
-                                }
+
                             } else
                                 new AlertDialog.Builder(MainActivity.this)
                                         .setTitle("Login Failed")

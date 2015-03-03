@@ -1,4 +1,4 @@
-package com.artqueen.logicuniversitystationerysystem.Employee.Activities;
+package com.artqueen.logicuniversitystationerysystem;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,15 +19,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.artqueen.logicuniversitystationerysystem.R;
+import com.artqueen.logicuniversitystationerysystem.Employee.Activities.MainActivity;
+import com.artqueen.logicuniversitystationerysystem.Employee.Activities.MakeRequest;
+import com.artqueen.logicuniversitystationerysystem.Employee.Activities.RequestHistory;
+import com.artqueen.logicuniversitystationerysystem.Employee.Activities.UpdateRequisition;
+import com.artqueen.logicuniversitystationerysystem.Representative.CollectionPoint;
 
 import java.io.InputStream;
 import java.net.URL;
 
 
-public class EmployeeHomePage extends ActionBarActivity {
+public class HomePage extends ActionBarActivity {
     TextView name;
-    Button makeRequest,updateRequest,requestHistory;
+    Button makeRequest,updateRequest,requestHistory,disbursementList,collectionPoint;
     private ProgressBar spinner;
     boolean doubleBackToExitPressedOnce;
 
@@ -35,9 +39,10 @@ public class EmployeeHomePage extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_employee_home_page);
+        setContentView(R.layout.activity_home_page);
         name= (TextView) findViewById(R.id.nameTV);
         final String username = MainActivity.p.get("userName");
+        String userRole = MainActivity.p.get("userRoleId");
         spinner = (ProgressBar)findViewById(R.id.progressBar);
         final ImageView image = (ImageView) findViewById(R.id.displayIV);
         new AsyncTask<String, Void, Bitmap>() {
@@ -62,13 +67,26 @@ public class EmployeeHomePage extends ActionBarActivity {
             }
         }.execute(MainActivity.p.get("userPhoto"));
 
+        if(userRole.equals("DR"))
+        {
+            disbursementList = (Button) findViewById(R.id.disbursementListBtn);
+            disbursementList.setVisibility(View.VISIBLE);
+            collectionPoint = (Button) findViewById(R.id.collectionPointBtn);
+            collectionPoint.setVisibility(View.VISIBLE);
+        }
 
+        collectionPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomePage.this, CollectionPoint.class));
+            }
+        });
 
         makeRequest = (Button) findViewById(R.id.makeRequestBtn);
         makeRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EmployeeHomePage.this,MakeRequest.class);
+                Intent i = new Intent(HomePage.this,MakeRequest.class);
                 startActivity(i);
             }
         });
@@ -76,7 +94,7 @@ public class EmployeeHomePage extends ActionBarActivity {
         updateRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(EmployeeHomePage.this,UpdateRequisition.class);
+                Intent i = new Intent(HomePage.this,UpdateRequisition.class);
                 startActivity(i);
             }
         });
@@ -85,7 +103,7 @@ public class EmployeeHomePage extends ActionBarActivity {
         requestHistory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity( new Intent(EmployeeHomePage.this,RequestHistory.class));
+                startActivity( new Intent(HomePage.this,RequestHistory.class));
             }
         });
 
@@ -108,12 +126,12 @@ public class EmployeeHomePage extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            new AlertDialog.Builder(EmployeeHomePage.this)
+            new AlertDialog.Builder(HomePage.this)
                     .setTitle("Logout!")
                     .setMessage("Are you sure you want to Logout ?")
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            startActivity(new Intent(EmployeeHomePage.this,MainActivity.class));
+                            startActivity(new Intent(HomePage.this,MainActivity.class));
                         }
                     })
                     .setNegativeButton("No", new DialogInterface.OnClickListener() {

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
+import com.artqueen.logicuniversitystationerysystem.HomePage;
 import com.artqueen.logicuniversitystationerysystem.JSONParser;
 import com.artqueen.logicuniversitystationerysystem.R;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.RequisitionDetails;
@@ -58,8 +59,8 @@ public class UpdateCart extends ActionBarActivity implements AdapterView.OnItemC
                         .setMessage("Are you sure you want to Cancel Updating Request ?")
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(UpdateCart.this,"Request Updating Cancelled",Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(UpdateCart.this,EmployeeHomePage.class));
+                                Toast.makeText(UpdateCart.this, "Request Updating Cancelled", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(UpdateCart.this, HomePage.class));
                             }
                         })
                         .setNegativeButton("No", new DialogInterface.OnClickListener() {
