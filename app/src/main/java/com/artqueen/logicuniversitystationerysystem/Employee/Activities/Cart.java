@@ -20,14 +20,12 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters.CartAdapter;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Department;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
 import com.artqueen.logicuniversitystationerysystem.JSONParser;
 import com.artqueen.logicuniversitystationerysystem.R;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Requisition;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import org.json.JSONException;
@@ -37,7 +35,7 @@ import org.json.JSONObject;
 
 public class Cart extends ActionBarActivity implements AdapterView.OnItemClickListener{
 
-    Button goBack;
+    Button goBack,cancelRequest;
 
     NumberPicker quantityNP;
     TextView uom;
@@ -48,6 +46,30 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
         setContentView(R.layout.activity_cart);
         ListView list = (ListView) findViewById(R.id.cartLV);
         list.setOnItemClickListener(this);
+
+        cancelRequest = (Button) findViewById(R.id.cancelRequest);
+        cancelRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(Cart.this)
+                        .setTitle("Cancel Request")
+                        .setMessage("Are you sure you want to Cancel Request ?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                             Toast.makeText(Cart.this,"Request Cancelled",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(Cart.this,EmployeeHomePage.class));
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+            }
+        });
 
         goBack = (Button)findViewById(R.id.addMoreBtn);
         goBack.setOnClickListener(new View.OnClickListener() {
@@ -70,8 +92,6 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
     @Override
     public void onItemClick(AdapterView<?> av, View v, final int position, long id) {
 
-        Toast.makeText(Cart.this,"Clicked",Toast.LENGTH_LONG).show();
-
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
         final View yourCustomView = inflater.inflate(R.layout.dialog_box, null);
@@ -81,6 +101,8 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
         quantityNP.setMaxValue(100);
         quantityNP.setValue(Integer.parseInt(MakeRequest.cart.get(position).get("qty")));
 
+
+
         uom = (TextView) yourCustomView.findViewById(R.id.unitOfMeasureTv);
         uom.setText("Unit of Measure: "+MakeRequest.cart.get(position).get("unitOfMeasure"));
 
@@ -89,8 +111,8 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         String qty = String.valueOf(quantityNP.getValue());
-                        Toast.makeText(Cart.this,qty,Toast.LENGTH_SHORT).show();
                         MakeRequest.cart.get(position).saveQty(qty);
+                        CartAdapter.listItemText1.setText(qty);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -106,13 +128,12 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 ConfirmRequisition();
-
             }
         })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
-                }).setTitle("Make the Requisition")
+                }).setTitle("Submit the Stationery Request for Approval ?")
                 .show();
     }
 
@@ -125,10 +146,9 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             java.util.Date one=new java.util.Date();
             String dName= Department.getDepartment(MainActivity.p.get("userDepartmentId")).get("departmentName");
-            Toast.makeText(this,dName,Toast.LENGTH_SHORT).show();
             requisition.put("DepartmentName", dName);
             requisition.put("EmployeeID",MainActivity.p.get("userId"));
-            requisition.put("Status","pendding");
+            requisition.put("Status","Pending");
             requisition.put("Comments",null);
             requisition.put("ProcessStatus","NotProcess");
             requisition.put("Date",sdf.format(one));
@@ -150,7 +170,6 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
                 protected void onPostExecute(Requisition r)
                 {
                     int req = Integer.valueOf(r.get("requisitionID"));
-                    Log.e(">>onpostexcute",""+req);
                     saveDetail(req);
                 }
 
@@ -158,13 +177,14 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Toast.makeText(Cart.this,"Stationery Request Made Successfully",Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this,EmployeeHomePage.class));
     }
 
     public void saveDetail(int RequisitionID)
     {
         for(Items a:MakeRequest.cart)
         {
-            Log.e(">>",""+RequisitionID);
             String id=a.get("itemId");
             String qty=a.get("qty");
             int reqId = RequisitionID;
@@ -174,14 +194,13 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
                 requisitionDetail.put("Qty",qty);
                 requisitionDetail.put("RequisitionID",reqId);
                 String json=requisitionDetail.toString();
-                Toast.makeText(this,id,Toast.LENGTH_SHORT).show();
                 String result=JSONParser.postStream("http://10.10.1.144/Logic/Service.svc/InsertRequisitionDetail",json);
             } catch (JSONException e) {
                 e.printStackTrace();
-
             }
             MakeRequest.cart=new ArrayList<Items>();
         }
+
     }
 
 
@@ -201,6 +220,7 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             return true;
         }
 
@@ -209,6 +229,6 @@ public class Cart extends ActionBarActivity implements AdapterView.OnItemClickLi
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
     }
 }

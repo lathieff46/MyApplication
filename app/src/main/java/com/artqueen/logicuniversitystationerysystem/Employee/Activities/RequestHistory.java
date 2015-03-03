@@ -2,6 +2,7 @@ package com.artqueen.logicuniversitystationerysystem.Employee.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class RequestHistory extends ActionBarActivity {
                     .setMessage("You have made no Request, yet !")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-
+                            startActivity(new Intent(RequestHistory.this,EmployeeHomePage.class));
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)

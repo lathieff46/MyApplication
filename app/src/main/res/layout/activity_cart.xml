@@ -44,4 +44,12 @@
         android:layout_toRightOf="@+id/textView8"
         android:layout_toEndOf="@+id/textView8" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel Request"
+        android:id="@+id/cancelRequest"
+        android:layout_alignTop="@+id/addMoreBtn"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

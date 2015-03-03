@@ -2,6 +2,7 @@ package com.artqueen.logicuniversitystationerysystem.Employee.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
@@ -34,9 +35,7 @@ public class UpdateRequisition extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_requisition);
-
         String empID = MainActivity.p.get("userId");
-        Log.e(">>",""+empID);
         StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.LAX);
         List<Requisition> list = Requisition.list(empID);
         if(list.isEmpty())
@@ -46,7 +45,7 @@ public class UpdateRequisition extends ActionBarActivity {
                     .setMessage("You have made no Request, yet !")
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-
+                        startActivity(new Intent(UpdateRequisition.this,EmployeeHomePage.class));
                         }
                     })
                     .setIcon(android.R.drawable.ic_dialog_alert)
@@ -84,10 +83,9 @@ public class UpdateRequisition extends ActionBarActivity {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             java.util.Date one=new java.util.Date();
             String dName= Department.getDepartment(MainActivity.p.get("userDepartmentId")).get("departmentName");
-            Toast.makeText(this, dName, Toast.LENGTH_SHORT).show();
             requisition.put("DepartmentName", dName);
             requisition.put("EmployeeID",MainActivity.p.get("userId"));
-            requisition.put("Status","pendding");
+            requisition.put("Status","Pending");
             requisition.put("Comments",null);
             requisition.put("ProcessStatus","NotProcess");
             requisition.put("Date",sdf.format(one));
@@ -109,7 +107,6 @@ public class UpdateRequisition extends ActionBarActivity {
                 protected void onPostExecute(Requisition r)
                 {
                     int req = Integer.valueOf(r.get("requisitionID"));
-                    Log.e(">>onpostexcute",""+req);
                     saveDetail(req);
                 }
 
@@ -121,7 +118,6 @@ public class UpdateRequisition extends ActionBarActivity {
 
     public void saveDetail(int RequisitionID) {
         for (Items a : MakeRequest.cart) {
-            Log.e(">>", "" + RequisitionID);
             String id = a.get("itemId");
             String qty = a.get("qty");
             int reqId = RequisitionID;
@@ -131,7 +127,6 @@ public class UpdateRequisition extends ActionBarActivity {
                 requisitionDetail.put("Qty", qty);
                 requisitionDetail.put("RequisitionID", reqId);
                 String json = requisitionDetail.toString();
-                Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
                 String result = JSONParser.postStream("http://10.10.1.144/Logic/Service.svc/InsertRequisitionDetail", json);
             } catch (JSONException e) {
                 e.printStackTrace();

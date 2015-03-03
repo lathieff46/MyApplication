@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,7 +33,7 @@ import java.util.ArrayList;
 
 public class UpdateCart extends ActionBarActivity implements AdapterView.OnItemClickListener{
 
-    Button goBack;
+    Button goBack,cancelRequest;
     public static int RequisitionID;
     NumberPicker quantityNP;
     TextView uom;
@@ -43,12 +42,36 @@ public class UpdateCart extends ActionBarActivity implements AdapterView.OnItemC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-//        RequisitionID=Integer.valueOf(getIntent().getStringExtra("id"));
         UpdateCartAdapter cartAdapter =new UpdateCartAdapter(UpdateRequisitionAdapter.cart,this);
         cartAdapter.RequisitionID=RequisitionID;
         ListView list = (ListView) findViewById(R.id.cartLV);
         list.setAdapter(cartAdapter);
         list.setOnItemClickListener(this);
+
+        cancelRequest = (Button) findViewById(R.id.cancelRequest);
+        cancelRequest.setText("Cancel Updating");
+        cancelRequest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(UpdateCart.this)
+                        .setTitle("Cancel Updating ?")
+                        .setMessage("Are you sure you want to Cancel Updating Request ?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(UpdateCart.this,"Request Updating Cancelled",Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(UpdateCart.this,EmployeeHomePage.class));
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+
+            }
+        });
 
         goBack = (Button)findViewById(R.id.addMoreBtn);
         goBack.setOnClickListener(new View.OnClickListener() {
@@ -57,7 +80,7 @@ public class UpdateCart extends ActionBarActivity implements AdapterView.OnItemC
                 flag=1;
                 Intent i=new Intent(UpdateCart.this,MakeRequest.class);
                 i.putExtra("id",RequisitionID);
-                Log.e(">>>ID:",""+RequisitionID);
+
                 startActivity(i);
 
             }
@@ -68,8 +91,6 @@ public class UpdateCart extends ActionBarActivity implements AdapterView.OnItemC
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onItemClick(AdapterView<?> av, View v, final int position, long id) {
-
-        Toast.makeText(UpdateCart.this, "Clicked", Toast.LENGTH_LONG).show();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -88,8 +109,8 @@ public class UpdateCart extends ActionBarActivity implements AdapterView.OnItemC
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         String qty = String.valueOf(quantityNP.getValue());
-                        Toast.makeText(UpdateCart.this,qty,Toast.LENGTH_SHORT).show();
                         UpdateRequisitionAdapter.cart.get(position).saveQty(qty);
+                        UpdateCartAdapter.itemQuantity.setText(qty);
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -101,17 +122,17 @@ public class UpdateCart extends ActionBarActivity implements AdapterView.OnItemC
 
     public void submitRequisition(View v){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
                 ConfirmRequisition(RequisitionID);
-
             }
         })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                     }
-                }).setTitle("Make the Requisition")
+                }).setTitle("Update Request")
+                .setMessage("Are you sure you want to Update your Request ?")
                 .show();
     }
 
@@ -120,13 +141,14 @@ public class UpdateCart extends ActionBarActivity implements AdapterView.OnItemC
     {
        RequisitionDetails.deleteRequisitionallDetial(RequisitionID);
        saveDetail(RequisitionID);
+        Toast.makeText(UpdateCart.this,"Stationery Request Updated Successfully",Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this,UpdateRequisition.class));
     }
 
     public void saveDetail(int RequisitionID)
     {
         for(Items a:UpdateRequisitionAdapter.cart)
         {
-            Log.e(">>",""+RequisitionID);
             String id=a.get("itemId");
             String qty=a.get("qty");
             int reqId = RequisitionID;
@@ -136,7 +158,7 @@ public class UpdateCart extends ActionBarActivity implements AdapterView.OnItemC
                 requisitionDetail.put("Qty",qty);
                 requisitionDetail.put("RequisitionID",reqId);
                 String json=requisitionDetail.toString();
-                Toast.makeText(this,id,Toast.LENGTH_SHORT).show();
+
                 String result= JSONParser.postStream("http://10.10.1.144/Logic/Service.svc/InsertRequisitionDetail", json);
             } catch (JSONException e) {
                 e.printStackTrace();

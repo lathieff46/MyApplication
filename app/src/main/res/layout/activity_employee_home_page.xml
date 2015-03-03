@@ -30,8 +30,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/displayIV"
             android:maxHeight="150dp"
-            android:maxWidth="150dp"
-            android:src="@drawable/avatar" />
+            android:maxWidth="150dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,6 +41,12 @@
             android:layout_marginLeft="30dp"
             android:textStyle="bold|italic"
             android:textSize="30dp" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar" />
 
     </LinearLayout>
 

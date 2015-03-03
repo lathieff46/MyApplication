@@ -1,14 +1,17 @@
 package com.artqueen.logicuniversitystationerysystem.Employee.Activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -37,15 +40,14 @@ public class MakeRequest extends ActionBarActivity   {
             @Override
             public void onClick(View v) {
                 if(UpdateCart.flag!=1) {
-                    if (cart != null) {
+                    if (cart.isEmpty()) {
+                        Toast.makeText(MakeRequest.this, "No Items in Cart, Please add items to Proceed", Toast.LENGTH_SHORT).show();
+                    } else {
                         Intent i = new Intent(MakeRequest.this, Cart.class);
                         startActivity(i);
-                    } else {
-                        Toast.makeText(MakeRequest.this, "No Items in cart, Please add items", Toast.LENGTH_SHORT).show();
+
                     }
                 }else{
-//                    String id=getIntent().getStringExtra("id");
-//                    Log.e(">>>ID:",""+id);
                     Intent i = new Intent(MakeRequest.this, UpdateCart.class);
                     startActivity(i);
                 }
@@ -55,15 +57,27 @@ public class MakeRequest extends ActionBarActivity   {
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+
                 String search = searchEt.getText().toString();
                 StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.LAX);
                 List<Items> list = Items.list(search);
                 if(list.isEmpty())
                 {
                     new AlertDialog.Builder(MakeRequest.this)
-                            .setTitle("Sorry, No such Item!")
-                            .setMessage("Search again")
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            .setTitle("Oops, No such Item!")
+                            .setMessage("Please Try Again or View Catalog Below")
+                            .setPositiveButton("Ok, Got it!", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // continue with delete
+                                }
+                            })
+                            .setNegativeButton("View Catalogue", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // continue with delete
                                 }

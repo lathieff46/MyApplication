@@ -3,6 +3,7 @@ package com.artqueen.logicuniversitystationerysystem.Employee.ListAdapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +12,10 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.artqueen.logicuniversitystationerysystem.Employee.Activities.EmployeeHomePage;
+import com.artqueen.logicuniversitystationerysystem.Employee.Activities.MakeRequest;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.RequisitionDetails;
 import com.artqueen.logicuniversitystationerysystem.R;
@@ -24,6 +28,9 @@ import java.util.List;
  * Created by shaikmdashiq on 2/3/15.
  */
 public class UpdateCartAdapter extends BaseAdapter implements ListAdapter {
+
+    public static TextView itemQuantity;
+    String des;
     private List<Items> list = new ArrayList<Items>();
     private Context context;
     public int RequisitionID;
@@ -57,12 +64,12 @@ public class UpdateCartAdapter extends BaseAdapter implements ListAdapter {
         }
 
         final TextView listItemText = (TextView)view.findViewById(R.id.text1);
-        String des=((HashMap<String,String>)list.get(position)).get("description");
+        des =((HashMap<String,String>)list.get(position)).get("description");
         listItemText.setText(des);
 
-        TextView listItemText1 = (TextView)view.findViewById(R.id.text2);
+        itemQuantity = (TextView)view.findViewById(R.id.text2);
         String quantity=((HashMap<String,String>)list.get(position)).get("qty");
-        listItemText1.setText("Quantity: "+quantity);
+        itemQuantity.setText("Quantity: " + quantity);
         notifyDataSetChanged();
 
 
@@ -75,18 +82,20 @@ public class UpdateCartAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Are confirm delete the Requisition for this Item!")
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                builder .setTitle("Alert!")
+                        .setMessage("Remove " + des + " from the Cart ?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 Items a = list.get(position);
-                                Log.e(">>",""+a.get("itemId"));
                                 RequisitionDetails.deleteRequisitionDetail(a, RequisitionID);
                                 list.remove(position);
                                 notifyDataSetChanged();
+                                Toast.makeText(context, des + " removed from Cart", Toast.LENGTH_SHORT).show();
+
                             }
                         })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                             }
                         })

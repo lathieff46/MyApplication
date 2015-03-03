@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/userNameET"
             android:layout_weight="1"
+            android:singleLine="true"
             android:hint="Enter your Username" />
 
     </LinearLayout>
@@ -57,6 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/passwordET"
+            android:singleLine="true"
             android:hint="Enter your Password" />
     </LinearLayout>
 

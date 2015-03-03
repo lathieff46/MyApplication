@@ -1,7 +1,10 @@
 package com.artqueen.logicuniversitystationerysystem.Employee.Activities;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,6 +23,7 @@ public class MainActivity extends ActionBarActivity {
     Button loginBtn;
     EditText userNameEt,passwordEt;
     static Users p;
+    boolean doubleBackToExitPressedOnce;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +46,15 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     protected void onPostExecute(Users p) {
                         if(p==null){
-                            Toast.makeText(MainActivity.this,"Login failed",Toast.LENGTH_SHORT).show();
+                            new AlertDialog.Builder(MainActivity.this)
+                                    .setTitle("Login Failed")
+                                    .setMessage("Please Try Again or Contact System Administrator")
+                                    .setPositiveButton("Ok, Got It!", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                                    .setIcon(android.R.drawable.ic_dialog_alert)
+                                    .show();
                         }
                         else {
                             String pwd = p.get("userPassword");
@@ -52,11 +64,18 @@ public class MainActivity extends ActionBarActivity {
                                 String role = p.get("userRoleId");
                                 if (role.equals("DE")) {
                                     Intent intent = new Intent(MainActivity.this, EmployeeHomePage.class);
-                                    intent.putExtra("EmpDetails", p);
                                     startActivity(intent);
                                 }
                             } else
-                                Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                                new AlertDialog.Builder(MainActivity.this)
+                                        .setTitle("Login Failed")
+                                        .setMessage("Please Try Again or Contact System Administrator")
+                                        .setPositiveButton("Ok, Got It!", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        })
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
                         }
 
                     }
@@ -66,26 +85,26 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory( Intent.CATEGORY_HOME );
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
+            return;
         }
 
-        return super.onOptionsItemSelected(item);
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
+
 }

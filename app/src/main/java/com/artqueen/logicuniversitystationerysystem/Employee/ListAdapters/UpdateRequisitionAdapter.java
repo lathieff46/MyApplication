@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.artqueen.logicuniversitystationerysystem.Employee.Activities.EmployeeHomePage;
 import com.artqueen.logicuniversitystationerysystem.Employee.Activities.UpdateCart;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Items;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Requisition;
@@ -68,7 +69,7 @@ public class UpdateRequisitionAdapter extends BaseAdapter implements ListAdapter
         dateTv.setText("Date: "+list.get(position).get("Date"));
 
         requisitionNum = (TextView) view.findViewById(R.id.requitionNumTV);
-        requisitionNum.setText("Requisition id: "+(list.get(position).get("requisitionID")));
+        requisitionNum.setText("Requisition Id: "+(list.get(position).get("requisitionID")));
 
         Button update = (Button) view.findViewById(R.id.updaterequisitionBtn);
         update.setOnClickListener(new View.OnClickListener() {
@@ -84,17 +85,14 @@ public class UpdateRequisitionAdapter extends BaseAdapter implements ListAdapter
                     protected void onPostExecute(List<RequisitionDetails> result) {
                         for(RequisitionDetails c:result)
                         {
-                            Log.e(">>","-------- Itemid:"+c.get("itemId"));
+
                             Items one=Items.getItem(c.get("itemId"));
-                            Log.e(">>",""+one.get("description"));
+
                             one.saveQty(c.get("qty"));
-                            Log.e(">>",""+one.get("qty"));
+
                             cart.add(one);
                         }
-                        for(int i =0;i<cart.size();i++)
-                        {
-                            Log.e("From cart>>",""+cart.get(i).get("description"));
-                        }
+
                     }
                 }.execute(list.get(position).get("requisitionID"));
 
@@ -118,9 +116,11 @@ public class UpdateRequisitionAdapter extends BaseAdapter implements ListAdapter
                             public void onClick(DialogInterface dialog, int id) {
                                 int rid = Integer.valueOf(list.get(position).get("requisitionID"));
                                 Requisition.DeleteRequisition(rid);
-                                Log.e(">>>>>Deleteid:", "" + rid);
                                 list.remove(position);
                                 notifyDataSetChanged();
+                                if(list.isEmpty()){
+                                    context.startActivity(new Intent(context, EmployeeHomePage.class));
+                                }
                             }
                         })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

@@ -68,6 +68,8 @@ public class MyAdapter extends BaseAdapter implements ListAdapter {
                if(UpdateCart.flag!=1) {
                    Items a = (Items) list.get(position);
                    if (!MakeRequest.cart.contains(a)) {
+                       String itemName = a.get("description");
+                       Toast.makeText(context,itemName+" added to Cart!", Toast.LENGTH_SHORT).show();
                        MakeRequest.cart.add(a);
                        list.remove(a);
                    } else
@@ -75,7 +77,8 @@ public class MyAdapter extends BaseAdapter implements ListAdapter {
                }else{
                    Items a=(Items)list.get(position);
                    if (!checkSameCart(a.get("itemId"))) {
-                       Log.e(">>UPDATE  ADD NEW iTEM",""+a.get("itemId"));
+                       String itemName = a.get("description");
+                       Toast.makeText(context,itemName+" added to Cart!", Toast.LENGTH_SHORT).show();
                        UpdateRequisitionAdapter.cart.add(a);
                        list.remove(a);
                    } else
