@@ -21,8 +21,6 @@ public class RequestHistoryAdapter extends BaseAdapter implements ListAdapter {
     TextView dateTv,requisitionNum,requestStatus;
     private List<Requisition> list = new ArrayList<Requisition>();
     private Context context;
-
-
     public static List<Items> cart=new ArrayList<Items>();
 
     public RequestHistoryAdapter(List<Requisition> requisitionList, Context context)

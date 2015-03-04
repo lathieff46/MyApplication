@@ -33,5 +33,19 @@ public class Users extends HashMap<String, String> {
         return p;
     }
 
+    public static Users getUserByID(String userID) {
+        Users p = null;
+        try {
+            JSONObject a = JSONParser.getJSONFromUrl(String.format("%s/Service.svc/UsersById/%s", baseUrl, userID));
+            if(a!=null) {
+                p = new Users(a.getString("UserId"), a.getString("UserName"), a.getString("UserEmail"), a.getString("UserDepartmentId"), a.getString("UserPhoto"), a.getString("UserPassword"), a.getString("UserRoleId"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
+
 
 }

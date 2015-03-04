@@ -23,7 +23,9 @@ import com.artqueen.logicuniversitystationerysystem.Employee.Activities.MainActi
 import com.artqueen.logicuniversitystationerysystem.Employee.Activities.MakeRequest;
 import com.artqueen.logicuniversitystationerysystem.Employee.Activities.RequestHistory;
 import com.artqueen.logicuniversitystationerysystem.Employee.Activities.UpdateRequisition;
-import com.artqueen.logicuniversitystationerysystem.Representative.CollectionPoint;
+import com.artqueen.logicuniversitystationerysystem.Representative.Activity.CollectionPoint;
+import com.artqueen.logicuniversitystationerysystem.Representative.Activity.ConfirmDisbursement;
+import com.artqueen.logicuniversitystationerysystem.Representative.Data.Disbursement;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -74,6 +76,13 @@ public class HomePage extends ActionBarActivity {
             collectionPoint = (Button) findViewById(R.id.collectionPointBtn);
             collectionPoint.setVisibility(View.VISIBLE);
         }
+
+        disbursementList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomePage.this, ConfirmDisbursement.class));
+            }
+        });
 
         collectionPoint.setOnClickListener(new View.OnClickListener() {
             @Override

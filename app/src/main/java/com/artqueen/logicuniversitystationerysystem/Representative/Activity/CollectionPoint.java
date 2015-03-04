@@ -1,7 +1,6 @@
-package com.artqueen.logicuniversitystationerysystem.Representative;
+package com.artqueen.logicuniversitystationerysystem.Representative.Activity;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.widget.Toast;
 
 import com.artqueen.logicuniversitystationerysystem.Employee.Activities.MainActivity;
 import com.artqueen.logicuniversitystationerysystem.Employee.Data.Department;
-import com.artqueen.logicuniversitystationerysystem.Employee.Data.Requisition;
 import com.artqueen.logicuniversitystationerysystem.HomePage;
 import com.artqueen.logicuniversitystationerysystem.JSONParser;
 import com.artqueen.logicuniversitystationerysystem.R;

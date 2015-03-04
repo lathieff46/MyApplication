@@ -11,4 +11,6 @@
     <string name="title_activity_update_cart">UpdateCart</string>
     <string name="title_activity_request_history">RequestHistory</string>
     <string name="title_activity_collection_point">CollectionPoint</string>
+    <string name="title_activity_confirm_disbursement">ConfirmDisbursement</string>
+    <string name="title_activity_disbursement_details">DisbursementDetails</string>
 </resources>

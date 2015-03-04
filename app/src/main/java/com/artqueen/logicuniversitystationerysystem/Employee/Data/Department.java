@@ -29,7 +29,6 @@ public class Department extends HashMap<String,String>{
             if(a!=null) {
                 p = new Department(a.getString("DepartmentID"), a.getString("DepartmentName"), a.getString("DepartmentHeadID"), a.getString("CollectionPoint"), a.getString("DepartmentRepName"), a.getString("DepartmentHeadTerm"));
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
